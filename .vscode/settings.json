@@ -1,4 +1,6 @@
 {
     "git.useEditorAsCommitInput": true,
     "git.terminalGitEditor": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modificationsIfAvailable",
 }
