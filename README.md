@@ -1,5 +1,5 @@
 # Context
-[Actor Model - Wikipedia](https://en.wikipedia.org/wiki/Actor_model)
+[Actor Model - Wikipedia](https://en.wikipedia.org/wiki/Actor_model)  
 [Active Object](https://www.state-machine.com/active-object)
 
 # Getting Started
