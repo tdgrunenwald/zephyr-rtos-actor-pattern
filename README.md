@@ -1,3 +1,7 @@
+# Context
+[Actor Model - Wikipedia](https://en.wikipedia.org/wiki/Actor_model)
+[Active Object](https://www.state-machine.com/active-object)
+
 # Getting Started
 ## Install Tools
 1. Install [Node.js](https://nodejs.org/en/). Make sure **npm** is installed with it and added to your **PATH**
