@@ -1,3 +1,5 @@
+[![Quality Gate](https://github.com/tdgrunenwald/zephyr-rtos-actor-pattern/actions/workflows/quality-checks.yml/badge.svg)](https://github.com/tdgrunenwald/zephyr-rtos-actor-pattern/actions/workflows/quality-checks.yml)
+
 # Context
 [Actor Model - Wikipedia](https://en.wikipedia.org/wiki/Actor_model)  
 [Active Object](https://www.state-machine.com/active-object)
