@@ -54,3 +54,9 @@ jobs:
     - name: Build firmware
       run: |
         pio run --environment nrf52840_dk
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: zephyr-build-output
+        path: .pio/build/**/zephyr
