@@ -32,4 +32,4 @@ static int led_init(void)
 	return 0;
 }
 
-SYS_INIT(led_init, APPLICATION, 1);
+SYS_INIT(led_init, APPLICATION, 0);
