@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout source code
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
         ref: ${{github.event.ref}}
@@ -27,13 +28,11 @@ jobs:
         npm install
         npx commitlint --to ${{github.event.ref}}
 
-  ci:
-    name: CI quality checks
+  build-fw:
+    name: Build firmware
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
@@ -44,22 +43,36 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        mkdir /home/runner/ncs
+        cd /home/runner/ncs
+        wget https://developer.nordicsemi.com/.pc-tools/nrfutil/x64-linux/nrfutil
+        chmod +x ./nrfutil
+        ./nrfutil install toolchain-manager
+        ./nrfutil toolchain-manager install --ncs-version v2.5.0
+        ./nrfutil toolchain-manager launch --shell
+        west init -m https://github.com/nrfconnect-sdk/sdk-nrf --mr v2.5.0
+        west update
+        west zephyr-export
 
-    - name: Cache PlatformIO toolchain
+    - name: Cache toolchain
       uses: actions/cache@v3
       with:
-        key: platformio-toolchain-cache
-        path: /home/runner/.platformio
+        key: ncs-toolchain-cache
+        path: /home/runner/ncs
+
+    - name: Checkout source code
+      uses: actions/checkout@v3
 
     - name: Build firmware
       run: |
-        pio run --environment nrf52840_dk
-    
+        source /home/runner/ncs/zephyr/zephyr-env.sh
+        west build -b nrf52840dk_nrf52840
+
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
         name: zephyr-build-output
         path: |
-          .pio/build/**/*.config
-          .pio/build/**/*.dts
-          .pio/build/**/*.elf
+          build/**/*.config
+          build/**/*.dts
+          build/**/*.hex
