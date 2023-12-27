@@ -47,6 +47,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         wget https://developer.nordicsemi.com/.pc-tools/nrfutil/x64-linux/nrfutil
+        chmod +x ./nrfutil
         ./nrfutil install toolchain-manager
         ./nrfutil toolchain-manager install --ncs-version v2.5.0
         ./nrfutil toolchain-manager launch --shell
