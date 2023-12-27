@@ -1,8 +1,5 @@
-#include "button.h"
-
 int main(void)
 {
-	button_init();
-
+	/* Ignored by Zephyr */
 	return 0;
 }

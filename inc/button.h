@@ -10,6 +10,4 @@ enum button_index
 	BUTTON_NUM_BUTTONS,
 };
 
-void button_init(void);
-
 #endif /* BUTTON_H */

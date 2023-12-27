@@ -1,6 +1,7 @@
 #include "button.h"
 
 #include <zephyr/drivers/gpio.h>
+#include <zephyr/init.h>
 #include <zephyr/kernel.h>
 
 #include "led.h"
@@ -24,10 +25,8 @@ enum led_index button_to_led_mapping[] = {
 static enum led_index button_pin_to_led_index(uint32_t pin);
 static void button_isr(const struct device *dev, struct gpio_callback *cb, uint32_t pin);
 
-void button_init(void)
+static int button_init(void)
 {
-	led_init();
-
 	while (!device_is_ready(buttons[BUTTON_0].port) || !device_is_ready(buttons[BUTTON_1].port)
 		   || !device_is_ready(buttons[BUTTON_2].port) || !device_is_ready(buttons[BUTTON_3].port))
 	{
@@ -43,6 +42,8 @@ void button_init(void)
 		gpio_init_callback(&button_callbacks[i], button_isr, BIT(button->pin));
 		gpio_add_callback(button->port, &button_callbacks[i]);
 	}
+
+	return 0;
 }
 
 static enum led_index button_pin_to_led_index(uint32_t pin)
@@ -62,3 +63,5 @@ static void button_isr(const struct device *dev, struct gpio_callback *cb, uint3
 {
 	led_toggle(button_pin_to_led_index(pin));
 }
+
+SYS_INIT(button_init, APPLICATION, 0);

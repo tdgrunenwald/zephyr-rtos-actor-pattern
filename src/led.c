@@ -1,6 +1,7 @@
 #include "led.h"
 
 #include <zephyr/drivers/gpio.h>
+#include <zephyr/init.h>
 #include <zephyr/kernel.h>
 
 struct gpio_dt_spec leds[] = {
@@ -15,7 +16,7 @@ void led_toggle(enum led_index led)
 	gpio_pin_toggle_dt(&leds[led]);
 }
 
-void led_init(void)
+static int led_init(void)
 {
 	while (!device_is_ready(leds[LED_0].port) || !device_is_ready(leds[LED_1].port)
 		   || !device_is_ready(leds[LED_2].port) || !device_is_ready(leds[LED_3].port))
@@ -27,4 +28,8 @@ void led_init(void)
 	{
 		gpio_pin_configure_dt(&leds[i], GPIO_OUTPUT_ACTIVE);
 	}
+
+	return 0;
 }
+
+SYS_INIT(led_init, APPLICATION, 1);

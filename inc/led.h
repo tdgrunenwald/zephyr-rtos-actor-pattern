@@ -11,6 +11,4 @@ enum led_index {
 
 void led_toggle(enum led_index led);
 
-void led_init(void);
-
 #endif /* LED_H */
