@@ -47,6 +47,12 @@ jobs:
         west init -l .
         west update -o=--depth=1 -n
 
+    - name: Cache workspace
+      uses: actions/cache@v3
+      with:
+        key: v1-west-workspace
+        path: ${{ github.workspace }}
+
     - name: Build firmware
       working-directory: app
       run: |
