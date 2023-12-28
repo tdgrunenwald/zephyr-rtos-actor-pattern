@@ -45,7 +45,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install west
+        pip install -r requirements.txt
         wget https://developer.nordicsemi.com/.pc-tools/nrfutil/x64-linux/nrfutil
         chmod +x ./nrfutil
         ./nrfutil install toolchain-manager
