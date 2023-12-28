@@ -63,6 +63,6 @@ jobs:
       with:
         name: zephyr-build-output
         path: |
-          build/**/*.config
-          build/**/*.dts
-          build/**/*.hex
+          app/build/**/*.config
+          app/build/**/*.dts
+          app/build/**/*.hex
